@@ -1,0 +1,23 @@
+version: '3'
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    environment:
+      - EULA=TRUE
+    volumes:
+      - mc-data:/data
+  backup:
+    image: itzg/docker-mc-backup
+    environment:
+      - SRC_DIR=/data
+      - BACKUP_NAME=world
+      - INITIAL_DELAY=2m
+      - BACKUP_INTERVAL=30m
+      - DEST_DIR=/backups
+      - BACKUP_METHOD=tar
+    volumes:
+      - mc-data:/data
+      - mc-backups:/backups
+volumes:
+  mc-data:
+  mc-backups:
