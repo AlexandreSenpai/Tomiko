@@ -1,0 +1,21 @@
+services:
+  world-exporter:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/data
+  server:
+    image: itzg/minecraft-server
+    tty: true
+    stdin_open: true
+    ports:
+      - "25565:25565"
+      - "25575:25575"
+    environment:
+      EULA: "TRUE"
+      OPS: |
+        SoraKazugano
+    volumes:
+      # attach the relative directory 'data' to the container's /data path
+      - ./data:/data
